@@ -38,7 +38,8 @@ jobs:
           command: mvn clean test
 
       - allure/install
-      - allure/report
+      - allure/report:
+          results-path: "target/allure-results"
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
