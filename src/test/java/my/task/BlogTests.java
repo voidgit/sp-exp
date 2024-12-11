@@ -1,6 +1,8 @@
 package my.task;
 
+import my.task.clients.BlogClient;
 import my.task.config.ConfigurationManager;
+import my.task.models.User;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -20,6 +22,13 @@ public class BlogTests {
 
         assertThat(response.getBody().asString())
             .as("debug check")
+            .contains("Delphine");
+
+        var client = new BlogClient();
+        var users = client.getUsers();
+
+        assertThat(users)
+            .extracting(User::getUsername)
             .contains("Delphine");
     }
 }
