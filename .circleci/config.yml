@@ -37,7 +37,8 @@ jobs:
           name: Test
           command: mvn clean test
 
-      - allure/install
+      - allure/install:
+          version: 2.24.0
       - allure/report:
           results-path: "target/allure-results"
 
