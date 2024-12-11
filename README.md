@@ -2,6 +2,6 @@
 
 ToDo: update.
 
-`mvn test`
+`mvn clean test`
 
 `mvn allure:serve`
