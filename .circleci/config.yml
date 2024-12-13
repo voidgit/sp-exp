@@ -2,8 +2,23 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
-orbs:
-  allure: ayte/allure@0.1.3
+parameters:
+  configuration-path:
+    description: Path to Allure configuration, uses default one if omitted
+    type: string
+    default: /usr/local/share/allure/config/allure.yml
+  target-path:
+    description: Path for report directory
+    type: string
+    default: allure-report
+  results-path:
+    description: Path to directory with test results
+    type: string
+    default: allure-results
+  artifact-path:
+    description: Path that will be used when storing result as artifact
+    type: string
+    default: Report/Allure
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
@@ -53,9 +68,20 @@ jobs:
           command: sudo ln -s /usr/local/share/allure/bin/allure /usr/local/bin/allure
           when: always
 
-      - allure/report:
-          results-path: "target/allure-results"
-
+      - run:
+          name: >-
+            Allure report generation (<< parameters.results-path >> -> <<
+            parameters.target-path >>)
+          command: |
+            allure generate \
+              --config << parameters.configuration-path >> \
+              --report-dir << parameters.target-path >> \
+              << parameters.results-path >>
+          when: always
+      - store_artifacts:
+          path: << parameters.target-path >>
+          destination: << parameters.artifact-path >>
+          when: always
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
