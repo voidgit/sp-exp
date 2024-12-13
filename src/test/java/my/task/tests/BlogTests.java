@@ -80,7 +80,7 @@ public class BlogTests {
             .website("anastasia.net")
             .company(Company.builder()
                 .name("Deckow-Crist")
-                .catchPhrase("Proactive didactic contingency" + "EMULATING FAILURE ON CI")
+                .catchPhrase("Proactive didactic contingency")
                 .bs("synergize scalable supply-chains")
                 .build())
             .build();
