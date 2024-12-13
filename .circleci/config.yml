@@ -34,24 +34,25 @@ jobs:
 
 
   generate-report:
-    # Looks like orb ayte/allure@0.1.3 is outdated so instead of `allure/install` using its source with updated version
-    - run:
-        name: Allure archive download
-        command: >-
-          curl -L https://github.com/allure-framework/allure2/releases/download/2.32.0/allure-2.32.0.zip -o
-          /tmp/allure.zip
-    - run:
-        name: Archive extraction
-        command: unzip /tmp/allure.zip
-    - run:
-        name: Allure installation
-        command: sudo mv allure-2.32.0 /usr/local/share/allure
-    - run:
-        name: Allure binary symlinking
-        command: sudo ln -s /usr/local/share/allure/bin/allure /usr/local/bin/allure
+    steps:
+      # Looks like orb ayte/allure@0.1.3 is outdated so instead of `allure/install` using its source with updated version
+      - run:
+          name: Allure archive download
+          command: >-
+            curl -L https://github.com/allure-framework/allure2/releases/download/2.32.0/allure-2.32.0.zip -o
+            /tmp/allure.zip
+      - run:
+          name: Archive extraction
+          command: unzip /tmp/allure.zip
+      - run:
+          name: Allure installation
+          command: sudo mv allure-2.32.0 /usr/local/share/allure
+      - run:
+          name: Allure binary symlinking
+          command: sudo ln -s /usr/local/share/allure/bin/allure /usr/local/bin/allure
 
-    - allure/report:
-        results-path: "target/allure-results"
+      - allure/report:
+          results-path: "target/allure-results"
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
