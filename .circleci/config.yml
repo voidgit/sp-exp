@@ -34,6 +34,10 @@ jobs:
 
 
   generate-report:
+    docker:
+      # Specify the version you desire here
+      # See: https://circleci.com/developer/images/image/cimg/openjdk
+      - image: cimg/openjdk:21.0
     steps:
       # Looks like orb ayte/allure@0.1.3 is outdated so instead of `allure/install` using its source with updated version
       - run:
