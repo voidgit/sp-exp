@@ -14,7 +14,6 @@ import static my.task.conditions.BlogChecks.isValidEmail;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BlogTests {
-
     public static final String DELPHINE_TEST_USER = "Delphine";
 
     @Test
