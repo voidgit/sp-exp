@@ -8,8 +8,6 @@ import my.task.models.Company;
 import my.task.models.Geo;
 import my.task.models.User;
 import org.assertj.core.api.AutoCloseableSoftAssertions;
-import org.assertj.core.api.SoftAssertions;
-import org.assertj.core.api.SoftAssertionsProvider;
 import org.junit.jupiter.api.Test;
 
 import static my.task.conditions.BlogChecks.isValidEmail;
@@ -46,8 +44,21 @@ public class BlogTests {
     }
 
     /**
+     * =================================================================================================================
      * Additional test examples
+     * =================================================================================================================
      */
+
+    @Test
+    @Description("Should return 404 for non-existing endpoint")
+    void shouldReturn404ForNonExistingEndpoint() {
+        var client = new BlogClient();
+        var response = client.getNonExisingEndpoint("there_is_no_such_endpoint");
+
+        assertThat(response.getStatusCode())
+            .isEqualTo(404);
+    }
+
     @Test
     @Description("Given existing user, then his data should exactly match to stored one")
     void validateUser() {
@@ -85,12 +96,13 @@ public class BlogTests {
     }
 
     @Test
-    @Description("All posts should have title and body at least 5 characters long")
+    @Description("All posts should have ids, with title and body at least 3 and 5 chars long respectively")
     void validatePosts() {
         var client = new BlogClient();
         var posts = client.getPosts();
 
         assertThat(posts)
+            .as("All posts should have title and body at least 5 characters long")
             .allSatisfy(post -> {
                 try (var softly = new AutoCloseableSoftAssertions()) {
                     softly.assertThat(post.getId())

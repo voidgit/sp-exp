@@ -10,6 +10,7 @@ import io.restassured.config.RestAssuredConfig;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import my.task.config.ConfigurationManager;
 import my.task.config.TestConfig;
@@ -74,6 +75,12 @@ public class BlogClient {
             .statusCode(200)
             .extract().response().as(new TypeRef<>() {
             });
+    }
+
+    public Response getNonExisingEndpoint(String nonExistingEndpointPath) {
+        return givenBlogService()
+            .get(nonExistingEndpointPath)
+            .thenReturn();
     }
 
     private RequestSpecification givenBlogService() {
