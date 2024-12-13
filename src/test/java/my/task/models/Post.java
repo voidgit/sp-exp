@@ -1,13 +1,11 @@
 package my.task.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-public class User {
+public class Post {
     private Integer id;
-    private String username;
+    private Integer userId;
 }
