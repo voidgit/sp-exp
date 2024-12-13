@@ -9,16 +9,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @Data
 @Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Setter(AccessLevel.NONE)
-public class Comment {
-    private Integer postId;
-    private Integer id;
+public class Company {
     private String name;
-    private String email;
-    private String body;
+    private String catchPhrase;
+    private String bs;
 }
