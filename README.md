@@ -12,4 +12,5 @@
 
 ## On CircleCI
 1. Project https://app.circleci.com/pipelines/github/voidgit/sp-exp
-2. Latest report <to update>
+2. Latest report https://output.circle-artifacts.com/output/job/452033a9-ae85-45ba-b0ec-259835070c61/artifacts/0/Report/Allure/index.html 
+(this is a link to Artifacts in CircleCI)
