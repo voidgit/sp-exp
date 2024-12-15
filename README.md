@@ -52,12 +52,12 @@ Test report can be found here with tests mapped to stories - https://output.circ
 # Bug report example for test `shouldRetrieveCreatedComment()`
 ### Title: Jira-111: When attempting to create comment, 201 is returned but comment is not actually created
 
-**Summary:**
+### **Summary:**
 
 When attempting to create comment with valid data, 201 is returned along with valid data used in the comment creation - 
 but comment is not actually created and cannot be found when requesting list of comments.
 
-**Steps to reproduce:**
+### **Steps to reproduce:**
 
 1. Run test `shouldRetrieveCreatedComment()`
 
@@ -76,11 +76,11 @@ or
 2. Get list of comments via GET `https://jsonplaceholder.typicode.com/comments`
 3. Find the comment that was just created in the list say via unique name
 
-**Actual result:**
+### **Actual result:**
 
 POST `https://jsonplaceholder.typicode.com/comments` results with 201 + valid response exactly the same as data that was used in comment creation + valid ID (that's part is ok)
 When trying to find the comment in the list returned via GET `https://jsonplaceholder.typicode.com/comments` - _it is not there_.
 
-**Expected result:**
+### **Expected result:**
 
 Comment is created and present when requesting the list of comments.
