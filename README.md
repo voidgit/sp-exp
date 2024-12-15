@@ -14,7 +14,7 @@
 
 ## On CircleCI
 1. Project https://app.circleci.com/pipelines/github/voidgit/sp-exp
-2. Latest report https://output.circle-artifacts.com/output/job/274c270f-232d-4fd1-9964-91f5f0efcb4f/artifacts/0/Report/Allure/index.html 
+2. Latest report https://output.circle-artifacts.com/output/job/9ac49198-9c80-4416-b42c-6495bb6fbad6/artifacts/0/Report/Allure/index.html 
 (this is a link to Artifacts in CircleCI)
 
 # Test results
@@ -46,7 +46,7 @@ Please find example of bug report for 1 test failure below.
 3. Other main functional aspects are not covered.
 4. Non-functional aspects are not covered at all.
 
-Test report can be found here with tests mapped to stories - https://output.circle-artifacts.com/output/job/274c270f-232d-4fd1-9964-91f5f0efcb4f/artifacts/0/Report/Allure/index.html
+Test report can be found here with tests mapped to stories - https://output.circle-artifacts.com/output/job/9ac49198-9c80-4416-b42c-6495bb6fbad6/artifacts/0/Report/Allure/index.html
 (jiras are pseudorandom ones taken from Atlassian Jira Data Center)
 
 # Bug report example for test `shouldRetrieveCreatedComment()`
