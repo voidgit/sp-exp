@@ -14,7 +14,7 @@
 
 ## On CircleCI
 1. Project https://app.circleci.com/pipelines/github/voidgit/sp-exp
-2. Latest report https://output.circle-artifacts.com/output/job/9ac49198-9c80-4416-b42c-6495bb6fbad6/artifacts/0/Report/Allure/index.html 
+2. Latest report https://output.circle-artifacts.com/output/job/0a384926-e362-4649-82e5-8da01eb33bad/artifacts/0/Report/Allure/index.html 
 (this is a link to Artifacts in CircleCI)
 
 # Test results
@@ -50,7 +50,7 @@ Regarding requirements test coverage:
 Regarding service code coverage:
 1. It is recommended to calculate code test coverage by unit/integration tests using branch coverage metrics with target value of 80+% 
 
-Test report can be found here with tests mapped to stories - https://output.circle-artifacts.com/output/job/9ac49198-9c80-4416-b42c-6495bb6fbad6/artifacts/0/Report/Allure/index.html
+Test report can be found here with tests mapped to stories - https://output.circle-artifacts.com/output/job/0a384926-e362-4649-82e5-8da01eb33bad/artifacts/0/Report/Allure/index.html
 (jiras are pseudorandom ones taken from Atlassian Jira Data Center)
 
 # Bug report example for test `shouldRetrieveCreatedComment()`
