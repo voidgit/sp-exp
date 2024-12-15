@@ -41,10 +41,14 @@ Please find example of bug report for 1 test failure below.
    4. Privacy, compliance, GDPR etc.
 
 # Test coverage
+Regarding requirements test coverage:
 1. Only 1 business flow is covered partially - `getting comments for user post` (1.iv from plan)
 2. Only 5 endpoints are covered from approximately 30.
 3. Other main functional aspects are not covered.
 4. Non-functional aspects are not covered at all.
+
+Regarding service code coverage:
+1. It is recommended to calculate code test coverage by unit/integration tests using branch coverage metrics with target value of 80+% 
 
 Test report can be found here with tests mapped to stories - https://output.circle-artifacts.com/output/job/9ac49198-9c80-4416-b42c-6495bb6fbad6/artifacts/0/Report/Allure/index.html
 (jiras are pseudorandom ones taken from Atlassian Jira Data Center)

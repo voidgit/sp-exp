@@ -20,13 +20,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BlogTests {
     private static final String DELPHINE_TEST_USER = "Delphine";
     private static final int EXISTING_POST_ID = 1;
+    private final BlogClient client = new BlogClient();
 
     @Test
     @Description("Given existing user with posts, then comments should contain valid emails")
     @Issue("JRASERVER-71768")
     void shouldHaveValidEmailsInComments() {
-        var client = new BlogClient();
-
         var delphine = getUser(client, DELPHINE_TEST_USER);
 
         var delphinePostIds = client.getPostsIds(delphine.getId());
@@ -58,7 +57,6 @@ public class BlogTests {
     @Description("Given attempt to create post with all null data, then creation attempt should be rejected")
     @Issue("JRASERVER-71768")
     void shouldRejectIncorrectPostCreation() {
-        var client = new BlogClient();
         var malformedPost = Post.builder()
             .title(null)
             .body(null)
@@ -75,7 +73,6 @@ public class BlogTests {
     @Description("Given empty body of the comment, then comment creation should be rejected")
     @Issue("JRASERVER-71768")
     void shouldRejectIncorrectCommentCreation() {
-        var client = new BlogClient();
         var commentWithoutBody = Comment.builder()
             .name("valid name " + UUID.randomUUID())
             .body("")
@@ -93,7 +90,6 @@ public class BlogTests {
     @Description("Given new comment is created, when retrieving list of comments, then comment should be in the list")
     @Issue("JRASERVER-71768")
     void shouldRetrieveCreatedComment() {
-        var client = new BlogClient();
         var validComment = Comment.builder()
             .name("valid name " + UUID.randomUUID())
             .body("valid body")
@@ -131,7 +127,6 @@ public class BlogTests {
     @Description("Should return 404 for non-existing endpoint")
     @Issue("JRASERVER-71768")
     void shouldReturn404ForNonExistingEndpoint() {
-        var client = new BlogClient();
         var response = client.getNonExisingEndpoint("there_is_no_such_endpoint");
 
         assertThat(response.getStatusCode())
@@ -166,7 +161,6 @@ public class BlogTests {
                 .build())
             .build();
 
-        var client = new BlogClient();
         var actualUser = getUser(client, expectedUser.getUsername());
 
         assertThat(actualUser)
@@ -179,7 +173,6 @@ public class BlogTests {
     @Description("All posts should have ids, with title and body at least 3 and 5 chars long respectively")
     @Issue("JRASERVER-77736")
     void shouldHavePostsWithValidContent() {
-        var client = new BlogClient();
         var posts = client.getPosts();
 
         assertThat(posts)
