@@ -1,24 +1,30 @@
 package my.task.tests;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Issue;
 import my.task.clients.BlogClient;
 import my.task.models.Address;
 import my.task.models.Comment;
 import my.task.models.Company;
 import my.task.models.Geo;
+import my.task.models.Post;
 import my.task.models.User;
 import org.assertj.core.api.AutoCloseableSoftAssertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.UUID;
 
 import static my.task.conditions.BlogChecks.isValidEmail;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BlogTests {
-    public static final String DELPHINE_TEST_USER = "Delphine";
+    private static final String DELPHINE_TEST_USER = "Delphine";
+    private static final int EXISTING_POST_ID = 1;
 
     @Test
     @Description("Given existing user with posts, then comments should contain valid emails")
-    void validateCommentsEmails() {
+    @Issue("JRASERVER-71768")
+    void shouldHaveValidEmailsInComments() {
         var client = new BlogClient();
 
         var delphine = getUser(client, DELPHINE_TEST_USER);
@@ -49,7 +55,81 @@ public class BlogTests {
      */
 
     @Test
+    @Description("Given attempt to create post with all null data, then creation attempt should be rejected")
+    @Issue("JRASERVER-71768")
+    void shouldRejectIncorrectPostCreation() {
+        var client = new BlogClient();
+        var malformedPost = Post.builder()
+            .title(null)
+            .body(null)
+            .userId(null)
+            .build();
+        var response = client.createPostAsResult(malformedPost);
+
+        assertThat(response.getStatusCode())
+            .as("Should reject new Post creation with all key data as null")
+            .isEqualTo(400);
+    }
+
+    @Test
+    @Description("Given empty body of the comment, then comment creation should be rejected")
+    @Issue("JRASERVER-71768")
+    void shouldRejectIncorrectCommentCreation() {
+        var client = new BlogClient();
+        var commentWithoutBody = Comment.builder()
+            .name("valid name " + UUID.randomUUID())
+            .body("")
+            .email("valid_test_email@restmail.net")
+            .postId(EXISTING_POST_ID)
+            .build();
+        var response = client.createCommentAsResult(commentWithoutBody);
+
+        assertThat(response.getStatusCode())
+            .as("Should reject new Comment creation with empty body")
+            .isEqualTo(400);
+    }
+
+    @Test
+    @Description("Given new comment is created, when retrieving list of comments, then comment should be in the list")
+    @Issue("JRASERVER-71768")
+    void shouldRetrieveCreatedComment() {
+        var client = new BlogClient();
+        var validComment = Comment.builder()
+            .name("valid name " + UUID.randomUUID())
+            .body("valid body")
+            .email("valid_test_email@restmail.net")
+            .postId(EXISTING_POST_ID)
+            .build();
+        var createdComment = client.createComment(validComment);
+
+        assertThat(createdComment)
+            .as("Response to newly created comment should be exactly equal to validComment ignoring id")
+            .usingRecursiveComparison()
+            .ignoringFields("id")
+            .isEqualTo(validComment);
+        assertThat(createdComment.getId())
+            .as("Id should be not null")
+            .isNotNull();
+
+        var retreivedComment = client.getComments()
+            .stream()
+            .filter(comment -> comment.getName().equals(validComment.getName()))
+            .findFirst()
+            .orElseThrow(() -> new AssertionError(String.format("Cannot find just created comment by name '%s'", validComment.getName())));
+
+        assertThat(retreivedComment)
+            .as("Newly created retrieved comment should be exactly equal to validComment ignoring id")
+            .usingRecursiveComparison()
+            .ignoringFields("id")
+            .isEqualTo(validComment);
+        assertThat(retreivedComment.getId())
+            .as("Id should be not null")
+            .isNotNull();
+    }
+
+    @Test
     @Description("Should return 404 for non-existing endpoint")
+    @Issue("JRASERVER-71768")
     void shouldReturn404ForNonExistingEndpoint() {
         var client = new BlogClient();
         var response = client.getNonExisingEndpoint("there_is_no_such_endpoint");
@@ -60,7 +140,8 @@ public class BlogTests {
 
     @Test
     @Description("Given existing user, then his data should exactly match to stored one")
-    void validateUser() {
+    @Issue("JRASERVER-77736")
+    void shouldReturnValidExistingUser() {
         var expectedUser = User.builder()
             .id(2)
             .name("Ervin Howell")
@@ -96,12 +177,13 @@ public class BlogTests {
 
     @Test
     @Description("All posts should have ids, with title and body at least 3 and 5 chars long respectively")
-    void validatePosts() {
+    @Issue("JRASERVER-77736")
+    void shouldHavePostsWithValidContent() {
         var client = new BlogClient();
         var posts = client.getPosts();
 
         assertThat(posts)
-            .as("All posts should have title and body at least 5 characters long")
+            .as("All posts should have ids, with title and body at least 3 and 5 chars long respectively")
             .allSatisfy(post -> {
                 try (var softly = new AutoCloseableSoftAssertions()) {
                     softly.assertThat(post.getId())

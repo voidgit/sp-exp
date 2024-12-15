@@ -15,9 +15,9 @@ public interface TestConfig extends Config {
     @Key("get.users")
     String getUsers();
 
-    @Key("get.posts")
-    String getPosts();
+    @Key("get.create.posts")
+    String getCreatePosts();
 
-    @Key("get.comments")
-    String getComments();
+    @Key("get.create.comments")
+    String getCreateComments();
 }

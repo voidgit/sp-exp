@@ -51,11 +51,19 @@ public class BlogClient {
     @Step
     public List<Post> getPosts() {
         return givenBlogService()
-            .get(config.getPosts())
+            .get(config.getCreatePosts())
             .then()
             .statusCode(200)
             .extract().response().as(new TypeRef<>() {
             });
+    }
+
+    @Step
+    public Response createPostAsResult(Post post) {
+        return givenBlogService()
+            .body(post)
+            .post(config.getCreatePosts())
+            .thenReturn();
     }
 
     @Step
@@ -70,13 +78,31 @@ public class BlogClient {
     @Step
     public List<Comment> getComments() {
         return givenBlogService()
-            .get(config.getComments())
+            .get(config.getCreateComments())
             .then()
             .statusCode(200)
             .extract().response().as(new TypeRef<>() {
             });
     }
 
+    @Step
+    public Response createCommentAsResult(Comment comment) {
+        return givenBlogService()
+            .body(comment)
+            .post(config.getCreateComments())
+            .thenReturn();
+    }
+
+    @Step
+    public Comment createComment(Comment comment) {
+        return createCommentAsResult(comment)
+            .then()
+            .statusCode(201)
+            .extract().response().as(new TypeRef<>() {
+            });
+    }
+
+    @Step
     public Response getNonExisingEndpoint(String nonExistingEndpointPath) {
         return givenBlogService()
             .get(nonExistingEndpointPath)
