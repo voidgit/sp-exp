@@ -40,9 +40,40 @@ Please find example of bug report for 1 test failure below.
    3. Security needs to be tested (static - like libraries vulnerabilities, dynamic - like encryption at rest (in DB), encryption in transit - like no HTTP for end user etc.)
    4. Privacy, compliance, GDPR etc.
 
+## _Examples_ of business flows from item 1.lll:
+
+There are set of groups of users, often represented as Personas which are be mapped to permission roles:
+1. Reader (any person from internet should be able to read Blogs, Comment, explicitly allowed public information from User etc.)
+2. Blogger/Commenter (Reader + can create Posts and Comment after logging in, etc.)
+3. Moderator (e.g. 1 + 2 + can delete Posts that another person has created etc.)
+4. Super-Admin (can do anything)
+...
+
+Then each domain entity (like User, Post, Comment) has CRUD operations (create/read/update/delete), permissions for these operation correlate with low level business rules that are responsible for data integrity (like `Comment can be only created for existing Post`) and permissions `Moderator can delete Comments from any Post` while `Blogger can delete only his Posts` etc.)
+
+Those operations and rules are covered with business scenarios example, like:
+1. `Any person to read Posts and Comments`
+2. `Blogger/Commenter can register himself`
+3. `Admin permissions can be given only by another Admin`
+4. `Moderator permissin can be given by another Moderator or Admin` (or only Admin)
+5. `Comments can be created for exiting Post for any Commenter`
+6. `Registered User can request to Delete himself, Posts, Comments etc. will remain`
+7. `All Admin and Moderator-specific actions are recorded for audit`
+....
+
+From these scenarios - multiple test scenarios (both positive and negative) will be derived and tests on appropriate test level of the test pyramid - created.
+
+E.g.:
+1. `Reader can only read, but only Post and Comment entities` - e.g. test will be to get list of Posts, Comments.
+   1. `Reader cannot do anything else` - e.g. test will be to try to create a Post, Comments etc. without authentication. 
+2. `Blogger/Commenter can create comment to any Post, Comment should have Name at least 3 chars, Body at least 3 chars, email should be valid`
+3. `Reader or Blogger/Commenter cannot delete Comments which they haven't created`
+4. `Moderator can delete any Comment or Post`
+and so on, so forth.
+
 # Test coverage
 Regarding requirements test coverage:
-1. Only 1 business flow is covered partially - `getting comments for user post` (1.iv from plan)
+1. Only 1 business flow is covered partially - `getting Comments for User Post` (1.iv from plan)
 2. Only 5 endpoints are covered from approximately 30.
 3. Other main functional aspects are not covered.
 4. Non-functional aspects are not covered at all.
