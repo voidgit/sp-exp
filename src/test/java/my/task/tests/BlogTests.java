@@ -137,6 +137,12 @@ public class BlogTests {
     @Description("Given existing user, then his data should exactly match to stored one")
     @Issue("JRASERVER-77736")
     void shouldReturnValidExistingUser() {
+        /*
+         * Please disregard the way this builder is used - in real life User object will be generated, then user will be created via API
+         * Then the initial data used in User creation will be fully compared to the entity returned via list User endpoint.
+         * I.e. this test was created to showcase proper model assertion, while first part was just a stub that will not be ever used in real test
+         * (as it is a malpractice to hardcode test data)
+         */
         var expectedUser = User.builder()
             .id(2)
             .name("Ervin Howell")
