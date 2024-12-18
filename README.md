@@ -1,5 +1,10 @@
 # sp-exp
 
+### NB: Please be aware that the latest 5 commits (including this one) were pushed after the discussion based on this solution that was done on 2024-12-18. 
+
+The changes consist of follow-up items highlighted during the discussion.
+
+Please see the git diff for details.
 
 # To run
 ## Locally
@@ -14,11 +19,11 @@
 
 ## On CircleCI
 1. Project https://app.circleci.com/pipelines/github/voidgit/sp-exp
-2. Latest report https://output.circle-artifacts.com/output/job/f80d1ac5-8087-4ee1-b2f3-73b1dad4e662/artifacts/0/Report/Allure/index.html 
+2. Latest report https://output.circle-artifacts.com/output/job/88faae8d-417b-4e55-9dff-98f431486643/artifacts/0/Report/Allure/index.html 
 (this is a link to Artifacts in CircleCI)
 
 # Test results
-There are 7 tests in total, 3 tests are failing due to actual bugs in the service under test.
+There are 6 tests in total, 3 tests are failing due to actual bugs in the service under test.
 
 Tests that are failing: `shouldRetrieveCreatedComment`, `shouldRejectIncorrectCommentCreation`, `shouldRejectIncorrectPostCreation`
 
@@ -81,7 +86,7 @@ Regarding requirements test coverage:
 Regarding service code coverage:
 1. It is recommended to calculate code test coverage by unit/integration tests using branch coverage metrics with target value of 80+% 
 
-Test report can be found here with tests mapped to stories - https://output.circle-artifacts.com/output/job/f80d1ac5-8087-4ee1-b2f3-73b1dad4e662/artifacts/0/Report/Allure/index.html
+Test report can be found here with tests mapped to stories - https://output.circle-artifacts.com/output/job/88faae8d-417b-4e55-9dff-98f431486643/artifacts/0/Report/Allure/index.html
 (jiras are pseudorandom ones taken from Atlassian Jira Data Center)
 
 # Bug report example for test `shouldRetrieveCreatedComment()`
