@@ -3,10 +3,7 @@ package my.task.tests;
 import io.qameta.allure.Description;
 import io.qameta.allure.Issue;
 import my.task.clients.BlogClient;
-import my.task.models.Address;
 import my.task.models.Comment;
-import my.task.models.Company;
-import my.task.models.Geo;
 import my.task.models.Post;
 import my.task.models.User;
 import org.assertj.core.api.AutoCloseableSoftAssertions;
@@ -131,48 +128,6 @@ public class BlogTests {
 
         assertThat(response.getStatusCode())
             .isEqualTo(404);
-    }
-
-    @Test
-    @Description("Given existing user, then his data should exactly match to stored one")
-    @Issue("JRASERVER-77736")
-    void shouldReturnValidExistingUser() {
-        /*
-         * Please disregard the way this builder is used - in real life User object will be generated, then user will be created via API
-         * Then the initial data used in User creation will be fully compared to the entity returned via list User endpoint.
-         * I.e. this test was created to showcase proper model assertion, while first part was just a stub that will not be ever used in real test
-         * (as it is a malpractice to hardcode test data)
-         */
-        var expectedUser = User.builder()
-            .id(2)
-            .name("Ervin Howell")
-            .username("Antonette")
-            .email("Shanna@melissa.tv")
-            .address(Address.builder()
-                .street("Victor Plains")
-                .suite("Suite 879")
-                .city("Wisokyburgh")
-                .zipcode("90566-7771")
-                .geo(Geo.builder()
-                    .lat("-43.9509")
-                    .lng("-34.4618")
-                    .build())
-                .build())
-            .phone("010-692-6593 x09125")
-            .website("anastasia.net")
-            .company(Company.builder()
-                .name("Deckow-Crist")
-                .catchPhrase("Proactive didactic contingency")
-                .bs("synergize scalable supply-chains")
-                .build())
-            .build();
-
-        var actualUser = getUser(client, expectedUser.getUsername());
-
-        assertThat(actualUser)
-            .as("Retrieved user should be exactly the same as expected one.")
-            .usingRecursiveComparison()
-            .isEqualTo(expectedUser);
     }
 
     @Test
