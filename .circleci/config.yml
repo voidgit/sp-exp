@@ -26,7 +26,7 @@ jobs:
           command: ./mvnw clean verify
 
       - run:
-          name: Test
+          name: Generate report
           command: ./mvnw allure:report
           when: always
 
@@ -62,7 +62,7 @@ jobs:
 #          when: always
 
       - store_artifacts:
-          path: allure-report
+          path: allure-maven-plugin
           destination: Report/Allure
           when: always
 # Orchestrate jobs using workflows
