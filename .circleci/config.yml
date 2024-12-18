@@ -50,16 +50,16 @@ jobs:
 #          name: Allure binary symlinking
 #          command: sudo ln -s /usr/local/share/allure/bin/allure /usr/local/bin/allure
 #          when: always
-
-      - run:
-          name: >-
-            Allure report generation
-          command: |
-            allure generate \
-              --config /usr/local/share/allure/config/allure.yml \
-              --report-dir allure-report \
-              target/allure-results
-          when: always
+#
+#      - run:
+#          name: >-
+#            Allure report generation
+#          command: |
+#            allure generate \
+#              --config /usr/local/share/allure/config/allure.yml \
+#              --report-dir allure-report \
+#              target/allure-results
+#          when: always
 
       - store_artifacts:
           path: allure-report
